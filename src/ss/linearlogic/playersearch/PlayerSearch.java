@@ -13,24 +13,19 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-public class PlayerSearch extends JavaPlugin
-{
+public class PlayerSearch extends JavaPlugin {
+
 	File configFile;
 	public static FileConfiguration config;
-	
 	private PSEvents listener = new PSEvents(this);
-	
 	private PSCommands cmdExecutor = new PSCommands(this);
-	
 	public List<String> totalPlayers;
 	
-	int number;
-	
-	public void onEnable()
-	{
+	public void onEnable() {
 		logInfo("Loading config.yml...");
 		configFile = new File(getDataFolder(), "config.yml");
-		try {firstRunConfiguration();
+		try {
+			firstRunConfiguration();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -45,14 +40,12 @@ public class PlayerSearch extends JavaPlugin
 		logInfo("Activating command handler");
 		getCommand("lookup").setExecutor(cmdExecutor);
 		
-		logInfo("Plugin successfully enabsled!");
+		logInfo("Plugin successfully enabled!");
 	}
 	
-	public void onDisable()
-	{
+	public void onDisable() {
 		logInfo("Saving players...");
 		saveConfig();
-		
 		logInfo("Plugin successfully disabled!");
 	}
 
@@ -69,57 +62,33 @@ public class PlayerSearch extends JavaPlugin
 	}
 
 //===========================Config file handling===========================//
-	private void firstRunConfiguration() throws Exception
-	{
-		if(!configFile.exists())
-		{
+	private void firstRunConfiguration() throws Exception {
+		if(!configFile.exists()) {
 			logInfo("Config not found, Creating one for you.");
 			configFile.getParentFile().mkdirs();
 			copy(getResource("config.yml"), configFile);
 		}
 	}
 	
-	private void copy(InputStream in, File file)
-	{
-		try
-		{
+	private void copy(InputStream in, File file) {
+		try {
 			OutputStream out = new FileOutputStream(file);
 			byte[] bBuffer = new byte[1024];
 			int len;
 			while ((len = in.read(bBuffer)) > 0)
-			{
 				out.write(bBuffer, 0, len);
-			}
 			out.close();
 			in.close();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void loadConfig()
-	{
-		try
-		{
+	public void loadConfig() {
+		try {
 			config.load(configFile);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-//	public void saveConfig()
-//	{
-//		try
-//		{
-//			config.save(configFile);
-//		}
-//		catch (IOException ioe)
-//		{
-//			ioe.printStackTrace();
-//		}
-//	}
 }

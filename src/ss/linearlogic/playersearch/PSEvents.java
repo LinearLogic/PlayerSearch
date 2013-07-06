@@ -7,21 +7,17 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class PSEvents implements Listener
 {
 	private PlayerSearch plugin;
-	public PSEvents(PlayerSearch instance)
-	{
+	public PSEvents(PlayerSearch instance) {
 		plugin = instance;
 	}
 	
 	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent event)
-	{
+	public void onPlayerJoin(PlayerJoinEvent event) {
 		String name = event.getPlayer().getName();
 		if (!plugin.totalPlayers.contains(name)) {			
 			plugin.totalPlayers.add(name);
 			plugin.getConfig().set("players", plugin.totalPlayers);
 			plugin.saveConfig();
-			plugin.reloadConfig();
-			return;
 		}
 	}
 }

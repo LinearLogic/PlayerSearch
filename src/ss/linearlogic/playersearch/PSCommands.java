@@ -11,13 +11,11 @@ import org.bukkit.entity.Player;
 public class PSCommands implements CommandExecutor
 {
 	private PlayerSearch plugin;
-	public PSCommands(PlayerSearch instance)
-	{
+	public PSCommands(PlayerSearch instance) {
 		plugin = instance;
 	}
 	
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
-	{
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if ((sender instanceof Player) && (!sender.hasPermission("playersearch.lookup")) && (!sender.hasPermission("playersearch.find")) && (!sender.hasPermission("playersearch.search"))) {
 			sender.sendMessage(ChatColor.GRAY + "[" + ChatColor.DARK_PURPLE + "PlayerSearch" + ChatColor.GRAY + "] " + ChatColor.RED + "Uh oh! " + ChatColor.GRAY + "You don't have permission to search for players.");
 			return true;
@@ -34,24 +32,16 @@ public class PSCommands implements CommandExecutor
 		ArrayList<String> offlinePlayers = new ArrayList<String>();
 		String search = args[0];
 		for (Player player : plugin.getServer().getOnlinePlayers()) // search online players first, to make sure the offline player results aren't redundant
-		{
-			if (player.getName().toLowerCase().contains(search.toLowerCase())) {
+			if (player.getName().toLowerCase().contains(search.toLowerCase()))
 				onlinePlayers.add(player.getName());
-			}
-		}
 		for (String playerName : plugin.totalPlayers) // search all players, and only record those that are offline
-		{
-			if ((playerName.toLowerCase().contains(search.toLowerCase())) && (!onlinePlayers.contains(playerName))) {
+			if ((playerName.toLowerCase().contains(search.toLowerCase())) && (!onlinePlayers.contains(playerName)))
 				offlinePlayers.add(playerName);
-			}
-		}
 		int resultCount = 0;
-		if (!onlinePlayers.isEmpty()) {
+		if (!onlinePlayers.isEmpty())
 			resultCount += onlinePlayers.size();
-		}
-		if (!offlinePlayers.isEmpty()) {
+		if (!offlinePlayers.isEmpty())
 			resultCount += offlinePlayers.size();
-		}
 		sender.sendMessage(ChatColor.GRAY + "[" + ChatColor.DARK_PURPLE + "PlayerSearch" + ChatColor.GRAY + "] There are " + ChatColor.AQUA + resultCount + ChatColor.GRAY + " players whose names contain \"" + ChatColor.AQUA + args[0] + ChatColor.GRAY + "\":\n" + ChatColor.GREEN + "Online: " + ChatColor.GRAY + onlinePlayers.toString() + "\n" + ChatColor.RED + "Offline: " + ChatColor.GRAY + offlinePlayers.toString());
 		return true;
 	}
