@@ -1,7 +1,7 @@
 name: PlayerSearch
 main: ss.linearlogic.playersearch.PlayerSearch
 author: LinearLogic
-version: 1.2
+version: 1.3
 permissions:
     playersearch.*:
         description: Grants access to all PlayerSearch commands
@@ -11,13 +11,13 @@ permissions:
             playersearch.search: true
     playersearch.lookup:
         description: Allows player to search for other players, both online and offline
-        default: op
+        default: true
     playersearch.find:
         description: Same as playersearch.lookup (idiot-proofing)
-        default: op
+        default: true
     playersearch.search:
         description: Same as previous two (more idiot-proofing)
-        default: op
+        default: true
 commands:
     lookup:
-        aliases: [playersearch, psearch, find]
+        aliases: [playersearch]
