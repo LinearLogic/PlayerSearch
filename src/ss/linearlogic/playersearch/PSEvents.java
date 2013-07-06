@@ -4,13 +4,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class PSEvents implements Listener
-{
+public class PSEvents implements Listener {
 	private PlayerSearch plugin;
 	public PSEvents(PlayerSearch instance) {
 		plugin = instance;
 	}
-	
+
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		String name = event.getPlayer().getName();
