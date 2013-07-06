@@ -1,7 +1,5 @@
 package ss.linearlogic.playersearch;
 
-
-import ss.linearlogic.playersearch.PSLogger;
 import ss.linearlogic.playersearch.PSEvents;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -30,7 +28,7 @@ public class PlayerSearch extends JavaPlugin
 	
 	public void onEnable()
 	{
-		PSLogger.logInfo("Loading config.yml...");
+		logInfo("Loading config.yml...");
 		configFile = new File(getDataFolder(), "config.yml");
 		try {firstRunConfiguration();
 		} catch (Exception e) {
@@ -40,22 +38,34 @@ public class PlayerSearch extends JavaPlugin
 		loadConfig();
 		totalPlayers = getConfig().getStringList("players");
 		
-		PSLogger.logInfo("Registering listener...");
+		logInfo("Registering listener...");
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(listener, this);
 		
-		PSLogger.logInfo("Activating command handler");
+		logInfo("Activating command handler");
 		getCommand("lookup").setExecutor(cmdExecutor);
 		
-		PSLogger.logInfo("Plugin successfully enabsled!");
+		logInfo("Plugin successfully enabsled!");
 	}
 	
 	public void onDisable()
 	{
-		PSLogger.logInfo("Saving players...");
+		logInfo("Saving players...");
 		saveConfig();
 		
-		PSLogger.logInfo("Plugin successfully disabled!");
+		logInfo("Plugin successfully disabled!");
+	}
+
+	public void logInfo(String msg) {
+		getLogger().info(msg);
+	}
+
+	public void logWarning(String msg) {
+		getLogger().warning(msg);
+	}
+
+	public void logSevere(String msg) {
+		getLogger().severe(msg);
 	}
 
 //===========================Config file handling===========================//
@@ -63,7 +73,7 @@ public class PlayerSearch extends JavaPlugin
 	{
 		if(!configFile.exists())
 		{
-			PSLogger.logInfo("Config not found, Creating one for you.");
+			logInfo("Config not found, Creating one for you.");
 			configFile.getParentFile().mkdirs();
 			copy(getResource("config.yml"), configFile);
 		}
