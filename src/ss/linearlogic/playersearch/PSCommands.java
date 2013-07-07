@@ -25,7 +25,7 @@ public class PSCommands implements CommandExecutor {
 			return true;
 		}
 		if (args.length != 1) {
-			sender.sendMessage(prefix + ChatColor.RED + "Too " + (args.length == 0 ? "few" : "many") + "arguments - " + 
+			sender.sendMessage(prefix + ChatColor.RED + "Too " + (args.length == 0 ? "few" : "many") + " arguments! " + 
 					ChatColor.GRAY + "Usage is /lookup <name>. The name doesn't need to be complete. Enter '*' as " +
 					"the name to list all players that have ever logged on to the server.");
 			return true;
